@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,8 +15,12 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.up*10*Time.deltaTime);
-        transform.Rotate(0f, steerValue * 5 * Time.deltaTime, 0f);
+        transform.Translate(Vector3.up*20*Time.deltaTime);
+
+        if(Touchscreen.current.primaryTouch.press.isPressed){
+            transform.Rotate(0f, steerValue * 10 * Time.deltaTime, 0f);
+            transform.Translate(Vector3.right * (-steerValue) * Time.deltaTime);
+        }
     }
 
     public void Steer(int value) {
